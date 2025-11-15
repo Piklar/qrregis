@@ -16,7 +16,7 @@ connectDB();
 const whitelist = [
   'http://127.0.0.1:5500',  // Local HTML / Live Server
   'http://localhost:3000',  // Local React or frontend
-  'YOUR_VERCEL_URL_GOES_HERE' // Replace later
+  'innovaitqr.vercel.app' // Replace later
 ];
 
 const corsOptions = {
