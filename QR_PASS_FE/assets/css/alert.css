@@ -1,0 +1,83 @@
+/* Custom Alert Styles */
+.custom-alert {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    z-index: 1000;
+}
+
+.custom-alert .alert-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background-color: #000;
+    padding: 30px 40px;
+    border-radius: 10px;
+    width: 300px;
+    animation: popup-animation 0.5s ease-out;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid #323741;
+}
+
+.custom-alert .alert-content > span {
+    text-align: center;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+.custom-alert #alertCloseButton {
+    margin-top: 20px;
+    width: 100px;
+    padding: 10px 0;
+    cursor: pointer;
+    border: none;
+    background-color: #fff;
+    color: #000;
+    font-weight: 700;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.custom-alert #alertCloseButton:hover {
+    opacity: 0.8;
+}
+
+/* Tablet View (768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .custom-alert .alert-content {
+        width: 80%;
+        max-width: 500px;
+        padding: 25px;
+    }
+
+    .custom-alert .alert-content > span {
+        font-size: 18px;
+    }
+
+    .custom-alert #alertCloseButton {
+        width: 50%;
+        padding: 12px;
+    }
+}
+
+/* Laptop View (1024px and above) */
+@media (min-width: 1024px) {
+    .custom-alert .alert-content {
+        width: 600px;
+    }
+}
+
+/* Modal Open State */
+body.modal-open {
+    overflow: hidden;
+}

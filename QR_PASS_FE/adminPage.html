@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <link rel="icon" type="image/x-icon" href="./assets/images/UAQR COLORED LOGO TECHKADA ICON.png" />
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+       
+    <!-- Scripts for onload animations -->
+    <script defer src="./assets/scripts/utils/animation.js"></script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/alert.css">
+    <link rel="stylesheet" href="./assets/css/adminPage.css">
+    <link rel="stylesheet" href="./assets/css/blobAnimation.css">
+    
+    <!-- jsQR Library -->
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+</head>
+<body>
+    <!-- Admin Login Page -->
+    <div class="login-main-container">
+
+        <!-- Blob animated background --> 
+        <div class="blob-outer-container">
+            <div class="blob-inner-container">
+                <div class="blob"></div>
+            </div>
+        </div>
+
+        <!-- Admin Login Page -->
+        <div id="adminLogin" class="login-container">
+            <img src="./assets/images/UAQR COLORED LOGO CYAN.png" alt="">
+            <h2 class="login-title">Admin Login</h2>
+            <div class="form-group">
+                <label for="adminUsername">Username</label>
+                <input type="text" id="adminUsername" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="adminPassword">Password</label>
+                <div class="password-input-container">
+                    <input type="password" id="adminPassword" placeholder="Enter password">
+                    <button type="button" class="toggle-password">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+            <button id="adminLoginBtn" class="login-btn">Login</button>
+            <div id="adminLoginStatus" class="login-error hidden">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Admin Dashboard (hidden until login) -->
+    <div id="adminDashboard" class="container hidden">
+        <div class="admin-header">
+            <div class="header-title">
+                <a href="./index.html"><img src="./assets/images/UAQR WHITE LOGO.png" alt=""></a>
+                <h1>Admin Dashboard</h1>
+            </div>
+            <button id="logoutBtn" class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="course-management">
+                <i class="fa-solid fa-graduation-cap"></i>
+                Year & Section Management
+            </div>
+            <div class="tab" data-tab="attendance-records">
+                <i class="fa-solid fa-clipboard-list"></i>
+                Attendance Records
+            </div>
+            <div class="tab" data-tab="verify">
+                <i class="fa-solid fa-qrcode"></i>
+                Verify QR
+            </div>
+        </div>
+        
+        <!-- Course Management Tab -->
+        <div id="course-management" class="tab-content active">
+            <div class="management-section">
+                <h2 class="section-title">Year Level & Section Management</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="courseName">Year Level & Section</label>
+                        <input type="text" id="courseName" placeholder="Enter Year Level & Section">
+                    </div>
+                    <div class="form-group">
+                        <label for="courseKey">Encryption Key (min 16 chars)</label>
+                        <div class="key-input-container">
+                            <input type="text" id="courseKey" placeholder="Enter encryption key">
+                            <button id="generateKeyBtn" class="generate-key-btn" type="button">
+                                <i class="fa-solid fa-key"></i> Generate Key
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button id="addCourseBtn" class="primary-btn"><i class="fa-solid fa-plus"></i> Add Year Level & Section</button>
+                    <button id="updateCourseBtn" class="success-btn hidden">Update Year Level & Section</button>
+                    <button id="cancelUpdateBtn" class="danger-btn hidden">Cancel</button>
+                </div>
+                <div id="courseStatus" class="status-message hidden"></div>
+                
+                <table class="courses-table">
+                    <thead>
+                        <tr>
+                            <th>Year Level & Section</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="coursesTableBody"></tbody>
+                </table>
+                <div class="pagination">
+                    <button class="pagination-btn" id="prevCoursePage" disabled>
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <span class="page-info" id="coursePageInfo">Page 1</span>
+                    <button class="pagination-btn" id="nextCoursePage">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Attendance Records Tab -->
+        <div id="attendance-records" class="tab-content">
+            <div class="filter-section">
+                <h2 class="section-title">Attendance Records</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="filterDate">Date</label>
+                        <input type="date" id="filterDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="filterCourse">Year Level & Section</label>
+                        <select id="filterCourse">
+                            <option value="">All Year Level & Section</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="attendance-btn-container">
+                    <button id="filterBtn" class="filter-btn">Filter Attendances</button>
+
+                    <button id="downloadPdfBtn" class="filter-btn">Download Attendance</button>
+                    
+                    <button id="clearAttendanceBtn" class="danger-btn">
+                        <i class="fa-solid fa-trash"></i>
+                        Clear Attendance Records
+                    </button>
+                </div>
+            </div>
+            
+            <div id="attendanceResults">
+                <div class="table-container">
+                    <table id="attendanceTable">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Year Level & Section</th>
+                                <th>Time In</th>
+                                <th>Time Out</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <button class="pagination-btn" id="prevAttendancePage" disabled>
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <span class="page-info" id="attendancePageInfo">Page 1</span>
+                    <button class="pagination-btn" id="nextAttendancePage">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Verify QR Tab -->
+        <div id="verify" class="tab-content">
+            <div class="form-group">
+                <label for="verifyCourse">Select Year Level & Section</label>
+                <select id="verifyCourse">
+                    <option value="">Select a Year Level & Section</option>
+                </select>
+            </div>
+            
+            <div class="decrypt-options">
+                <button class="scan-btn" id="scanBtn">Scan with Camera</button>
+                <button class="stop-scan-btn hidden" id="stopScanBtn">
+                    <i class="fa-solid fa-stop"></i>
+                    Stop Scanner
+                </button>
+            </div>
+            
+            <div id="scannerContainer" class="hidden">
+                <video id="scanner"></video>
+                <div id="cameraStatus"></div>
+            </div>
+            
+            <div id="verificationResult" class="hidden">
+                <div id="verificationMessage"></div>
+                <button id="newVerifyBtn" class="primary-btn">
+                    <i class="fa-solid fa-qrcode"></i>
+                    Verify Another QR Code
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Course Modal -->
+    <div id="editCourseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Year Level & Section</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="editCourseName">Year Level & Section</label>
+                <input type="text" id="editCourseName" placeholder="Enter course name">
+            </div>
+            <div class="form-group">
+                <label for="editCourseKey">Encryption Key (min 16 chars)</label>
+                <input type="text" id="editCourseKey" placeholder="Enter encryption key">
+            </div>
+            <div class="action-buttons">
+                <button id="saveCourseBtn" class="primary-btn">Save Changes</button>
+                <button id="cancelEditBtn" class="danger-btn">Cancel</button>
+            </div>
+            <div id="editCourseStatus" class="status-message hidden"></div>
+        </div>
+    </div>
+
+    <!-- Delete Course Modal -->
+    <div id="deleteCourseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Delete Year Level & Section</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <p id="deleteCourseMessage">Are you sure you want to delete this Year Level & Section?</p>
+            <div class="action-buttons">
+                <button id="confirmDeleteBtn" class="danger-btn">Delete</button>
+                <button id="cancelDeleteBtn" class="primary-btn">Cancel</button>
+            </div>
+            <div id="deleteCourseStatus" class="status-message hidden"></div>
+        </div>
+    </div>
+
+    <!-- Custom Alert -->
+    <div id="customAlert" class="custom-alert">
+        <div class="alert-content">
+            <span id="alertMessage"></span>
+            <button id="alertCloseButton">OK</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="./assets/scripts/utils/alert.js"></script>
+    <script type="module" src="./assets/scripts/admin.js"></script>
+</body>
+</html>

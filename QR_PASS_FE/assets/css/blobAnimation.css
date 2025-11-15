@@ -1,0 +1,43 @@
+/* Blob Animations (Animated Background) */ 
+.blob-outer-container {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: -1;
+    inset: 0;
+    margin: auto;
+    filter: blur(100px);
+    opacity: 0.3;
+}
+
+.blob-inner-container {
+    border-radius: 99999px;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 100vw;
+    height: 100vh;
+    min-width: 1000px;
+    overflow: hidden;
+    background-color: #fff;
+    transform: scale(0.6);
+}
+
+.blob {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    inset: 0;
+    margin: auto;
+    background: conic-gradient(from 0deg, #87EBF4, #2F3336, #87EBF4, #2F3336, #D9DADD);
+    animation: spinBlob 8s linear infinite;
+}
+
+@keyframes spinBlob {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    100% {
+        transform: rotate(1turn) scale(200);
+    }
+}

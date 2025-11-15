@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+/* Base Styles */
+body {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    overflow-x: hidden;
+}
+
+img {
+    width: 50px;
+}
+
+
+
+/* Hero Section Styles */
+.hero-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5rem;
+
+}
+
+.hero-container > h2 {
+    color: #fff;
+    font-size: 3rem;
+    font-weight: 700;
+    max-width: 30ch;
+    text-align: center;
+    font-family: "Orbitron", sans-serif;
+
+}
+
+.hero-container > p:nth-child(1){
+    color: #fff;
+    font-size: .9rem;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom:  1rem;
+    font-family: "Orbitron", sans-serif;
+}
+
+.hero-container-subtext{
+    margin-top: 1rem;
+}
+
+
+.gradient-text {
+    background: linear-gradient(to right, #D9DADD, #87EBF4); 
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Cards Section Styles */
+.cards-container {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.cards-container > h2 {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: left;
+}
+
+.cards-container > p {
+    color: #fff;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.cards {
+    display: flex;
+    gap: 1rem;
+    padding-block: 1rem;
+}
+
+.card {
+    border: 1px solid #000;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: 1rem;
+}
+
+.cards > .card {
+    width: 500px;
+    height: 300px;
+    padding: 3rem;
+    background-color: #000000;
+}
+
+.card > i {
+    font-size: 3rem;
+    color: #87EBF4;
+    padding-block: 1rem;
+}
+
+.card > h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.card > p {
+    color: #404040;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+.card:hover {
+    border: 1px solid #222222;
+    transform: translateY(5px);
+}
+
+/* Mobile View (up to 767px) */
+@media (max-width: 767px) {
+    body {
+        gap: 1.5rem;
+    }
+
+    img {
+        width: 30px;
+    }
+
+    .hero-container {
+        padding: 1rem;
+    }
+
+    .hero-container > h2 {
+        font-size: 1.8rem;
+    }
+
+    .hero-container > p {
+        font-size: 0.5rem;
+    }
+
+    .cards-container > h2 {
+        font-size: 0.7rem;
+    }
+
+    .cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .cards > .card {
+        width: 85vw;
+        max-width: 85vw;
+        height: auto;
+        min-height: 120px;
+        padding: 2rem;
+        border-radius: 0.5rem;
+    }
+
+    .card > i {
+        font-size: 1.3rem;
+        padding-block: 0.5rem;
+    }
+
+    .card > h3 {
+        font-size: 0.6rem;
+        margin-top: 0.5rem;
+    }
+
+    .card > p {
+        font-size: 0.5rem;
+        margin-top: 0.5rem;
+    }
+}
+
+/* Tablet View (768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    body {
+        gap: 2.5rem;
+    }
+
+    .hero-container {
+        padding: 2rem;
+    }
+
+    .hero-container > h2 {
+        font-size: 2.2rem;
+    }
+
+    .hero-container > p {
+        font-size: 1rem;
+    }
+
+    .cards-container > h2 {
+        font-size: 1.2rem;
+    }
+
+    .cards {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .cards > .card {
+        width: 350px;
+        height: 220px;
+        padding: 2rem;
+    }
+
+    .card > i {
+        font-size: 2.5rem;
+    }
+
+    .card > h3 {
+        font-size: 1.2rem;
+    }
+
+    .card > p {
+        font-size: 0.95rem;
+    }
+}
+
+/* Laptop View (1024px and above) */
+@media (min-width: 1024px) {
+    body {
+        gap: 3rem;
+    }
+
+    .hero-container {
+        padding: 5rem;
+    }
+
+    .hero-container > h2 {
+        font-size: 3rem;
+    }
+
+    .hero-container > p {
+        font-size: 1.2rem;
+    }
+
+    .cards-container > h2 {
+        font-size: 1.5rem;
+    }
+
+    .cards {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .cards > .card {
+        width: 500px;
+        height: 300px;
+        padding: 3rem;
+    }
+
+    .card > i {
+        font-size: 3rem;
+    }
+
+    .card > h3 {
+        font-size: 1.5rem;
+    }
+
+    .card > p {
+        font-size: 1rem;
+    }
+}
