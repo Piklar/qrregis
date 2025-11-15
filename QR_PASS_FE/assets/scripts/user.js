@@ -260,7 +260,7 @@ async function generateStudentQR() {
             ctx.shadowBlur = 3;
             ctx.shadowOffsetX = 1;
             ctx.shadowOffsetY = 1;
-            ctx.fillText('La Nuit Elitaire', canvas.width/2, 70);
+            ctx.fillText('𝐈𝐍𝐍𝐎𝐕𝐀𝐈𝐓 𝟐𝟎𝟐𝟓', canvas.width/2, 70);
             ctx.shadowColor = 'transparent';
             
             // Add decorative line under title
@@ -314,7 +314,7 @@ async function generateStudentQR() {
             ctx.fillText('You are cordially invited to', canvas.width/2, qrY + qrSize + 50);
             
             ctx.font = 'bold 22px "Times New Roman", serif';
-            ctx.fillText('The Annual IT Night Celebration', canvas.width/2, qrY + qrSize + 85);
+            ctx.fillText('Transforming Visions into Innovations!', canvas.width/2, qrY + qrSize + 85);
             
             ctx.font = '18px "Times New Roman", serif';
             ctx.fillText('Present this QR code for entry', canvas.width/2, qrY + qrSize + 120);
@@ -344,7 +344,7 @@ function downloadQRCode() {
     const studentId = canvas.dataset.studentId || '';
     const studentName = canvas.dataset.studentName || 'student';
     
-    let filename = 'IT_Night_Invitation';
+    let filename = 'INNOVAIT_2025_Pass';
     if (studentId) filename += `_${studentId}`;
     if (studentName) {
         const cleanName = studentName.replace(/[^\w\s]/gi, '').replace(/\s+/g, '_');
