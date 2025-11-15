@@ -1,5 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
 h1, h2, h3 {
     color: #FFFFFF;
+}
+
+body{
+    background-image: url('../images/UA\ BG.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
 }
 
 /* Changes the date color icon explicitly (not working on firefox) */
@@ -51,13 +61,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     display: flex;
     align-items: center;
     gap: 8px;
-    border: 1px solid #323741;
+    border: 1px solid #47382c;
 }
 
 .danger-btn {
     background-color: transparent;
     color: #FFFFFF;
-    border: 1px solid #323741;
+    border: 1px solid #47382c;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
@@ -77,12 +87,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .filter-section {
-    background-color: #000;
+    background-color: #251d16;
     padding: 3rem;
     border-radius: 5px;
     margin-bottom: 20px;
     border-radius: .5rem;
-    border: 1px dashed #323741;
+    border: 1px dashed #47382c;
 
 }
 
@@ -105,8 +115,8 @@ label {
 input, select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #323741;
-    background-color: #23242A;
+    border: 1px solid #47382c;
+    background-color: #31271e;
     color: #FFFFFF;
     border-radius: 5px;
     height: 50px;
@@ -128,11 +138,10 @@ input, select {
 .login-btn:hover,
 .filter-btn:hover, 
 .primary-btn:hover{
-    background-color: #536AED;
+    background-color: #47382c;
     color: #fff;
     transform: translateY(-2px);
 
-    box-shadow: 0 0 0 5px #3b83f65f;
 }
 .login-btn:active,
 .filter-btn:active, 
@@ -147,10 +156,10 @@ input, select {
 }
 
 #attendance-records{
-    background-color: #000;
+    background-color: #251d16;
     padding: 1.5rem;
     border-radius: .5rem;
-    border: 1px solid #323741;
+    border: 1px solid #47382c;
 }
 
 #attendanceResults {
@@ -166,7 +175,7 @@ input, select {
     cursor: grab;
     user-select: none;
     scrollbar-width: thin; /* Firefox */
-    scrollbar-color: #323741 #000; /* Firefox */
+    scrollbar-color: #47382c #251d16; /* Firefox */
 }
 
 .table-container::-webkit-scrollbar {
@@ -174,12 +183,12 @@ input, select {
 }
 
 .table-container::-webkit-scrollbar-track {
-    background: #000;
+    background: #251d16;
     border-radius: 4px;
 }
 
 .table-container::-webkit-scrollbar-thumb {
-    background-color: #323741;
+    background-color: #251d16;
     border-radius: 4px;
     border: 2px solid #000;
 }
@@ -197,13 +206,13 @@ input, select {
     min-width: 800px;
     border-collapse: collapse;
     margin-top: 20px;
-    background-color: #000;
+    background-color: #251d16;
     border-radius: .5rem;
 }
 
 #attendanceTable th, 
 #attendanceTable td {
-    border: 1px solid #323741;
+    border: 1px solid #47382c;
     padding: 12px;
     text-align: left;
     white-space: nowrap;
@@ -213,11 +222,11 @@ input, select {
     font-weight: 500;
     position: sticky;
     top: 0;
-    background-color: #000;
+    background-color: #251d16;
 }
 
 #attendanceTable tr:hover {
-    background-color: #323741;
+    background-color: #47382c;
 }
 
 #attendanceTable tr {
@@ -255,7 +264,6 @@ input, select {
     top: 4rem;
     left: 0;
     right: 0;
-    background-color: #000;
 }
 
 .login-container {
@@ -264,9 +272,9 @@ input, select {
     gap: 10px;
     width: 600px;
     padding: 5rem;
-    background-color: #000;
+    background-color: #251d16;
     z-index: 1;
-    border-radius: 1rem;
+    /* border-radius: 1rem; */
     margin: 0 auto;
     position: relative;
     margin-top: 50px;
@@ -354,8 +362,7 @@ img{
 
 /* Course Management Styles */
 .management-section {
-    background-color: #000;
-    border: 1px solid #323741;
+    background-color: #251d16;
     padding: 3rem;
     border-radius: .5rem;
     margin-bottom: 20px;
@@ -365,7 +372,9 @@ img{
     margin-top: 0;
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #323741;
+    border-bottom: 1px solid #47382c;
+    font-family: "Playfair Display", serif;
+
 }
 
 .action-buttons {
@@ -395,22 +404,22 @@ img{
 
 .courses-table th, 
 .courses-table td {
-    border: 1px solid #323741;
+    border: 1px solid #47382c;
     padding: 12px;
     text-align: left;
 }
 
 .courses-table th {
-    background-color: #08090a;
+    background-color: #31271e;
     font-weight: 500;
 }
 
 .courses-table tr:nth-child(even) {
-    background-color: #08090a;
+    background-color: #30251c;
 }
 
 .courses-table tr:hover {
-    background-color: #323741;
+    background-color: #47382c;
 }
 
 .courses-table .action-buttons {
@@ -676,7 +685,7 @@ img{
     height: 100%;
     border-radius: 5px;
     padding: 0.6rem;
-    background-color: #191C24;
+    background-color: #31271e;
     color: #FFFFFF;
 }
 
@@ -685,8 +694,8 @@ img{
 }
 
 .tab.active {
-    background-color: #323741;
-    color: white;
+    background-color: #47382c;
+    color: #fff;
 }
 
 .tab-content {
@@ -711,7 +720,7 @@ img{
 }
 
 .pagination-btn {
-    background-color: #191C24;
+    background-color: #47382c;
     color: #FFFFFF;
     border: none;
     padding: 8px 12px;
@@ -748,7 +757,7 @@ img{
 .generate-key-btn {
     /* background-color: #536AED; */
     background-color: transparent;
-    border: 1px solid #323741;
+    border: 1px solid #47382c;
     color: white;
     /* border: none; */
     padding: 10px 15px;
@@ -764,9 +773,8 @@ img{
 }
 
 .generate-key-btn:hover {
-    background-color: #3a56d8;
+    background-color: #47382c;
     transform: translateY(-2px);
-    box-shadow: 0 0 0 5px #3b83f65f;
 }
 
 .generate-key-btn:active {
@@ -1017,6 +1025,10 @@ img{
         justify-content: center;
         width: 100%;
     }
+    .login-container{
+        width: 300px;
+        border-radius: .5rem;
+    }
 }
 
 /* Tablet View (768px to 1023px) */
@@ -1259,10 +1271,10 @@ img{
 
 /* QR Verification Styles */
 #verify {
-    background-color: #000;
+    background-color: #251d16;
     padding: 1.5rem;
     border-radius: .5rem;
-    border: 1px solid #323741;
+    border: 1px solid #47382c;
 }
 
 .decrypt-options {
@@ -1289,11 +1301,10 @@ img{
 }
 
 .scan-btn:hover {
-    background-color: #536AED;
+    background-color: #47382c;
     color: #fff;
     transform: translateY(-2px);
 
-    box-shadow: 0 0 0 5px #3b83f65f;
 }
 .stop-scan-btn:hover {
     background-color: #d9534f;
@@ -1332,8 +1343,9 @@ img{
 #verificationResult {
     margin-top: 20px;
     padding: 20px;
-    background-color: #191C24;
+    background-color: #31271e;
     border-radius: 5px;
+    border: 1px dashed #47382c;
 }
 
 #verificationMessage{
@@ -1344,7 +1356,7 @@ img{
 .student-info {
     margin-bottom: 15px;
     padding: 15px;
-    background-color: #000;
+    background-color: #251d16;
     border-radius: 5px;
 }
 

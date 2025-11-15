@@ -1,5 +1,6 @@
 import alertPopup from "./utils/alert.js";
 
+// const API_BASE_URL = 'http://localhost:4000/api';
 const API_BASE_URL = 'https://qr-pass-system-prod-be.onrender.com/api';
 
 let adminToken = null;
@@ -793,6 +794,8 @@ async function verifyQRCode(encryptedData) {
     }
 }
 
+// changed ------------------------------------------------------------------
+
 function startScanner() {
     const course = document.getElementById('verifyCourse').value;
     if (!course) {
@@ -900,6 +903,108 @@ function stopScanner() {
         window.scannerStream = null;
     }
 }
+
+// Clear attendance records
+document.getElementById('clearAttendanceBtn').addEventListener('click', () => {
+    const date = document.getElementById('filterDate').value;
+    const course = document.getElementById('filterCourse').value;
+    
+    // Create confirmation message based on filters
+    let message = 'Are you sure you want to clear ALL attendance records?';
+    
+    if (date || course) {
+        message = 'Are you sure you want to clear attendance records for ';
+        if (date) message += `date: ${date}`;
+        if (date && course) message += ' and ';
+        if (course) message += `course: ${course}`;
+        message += '?';
+    }
+    
+    // Create confirmation modal
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirm Clear Attendance</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <p>${message}</p>
+            <p class="warning-text"><i class="fa-solid fa-triangle-exclamation"></i> This action cannot be undone!</p>
+            <div class="modal-actions">
+                <button id="confirmClearBtn" class="danger-btn">Clear Records</button>
+                <button id="cancelClearBtn" class="primary-btn">Cancel</button>
+            </div>
+            <div id="clearStatus" class="status-message hidden"></div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    document.body.classList.add("modal-open");
+    modal.style.display = "flex";
+    
+    // Close modal handlers
+    const closeModal = () => {
+        document.body.classList.remove("modal-open");
+        modal.remove();
+    };
+    
+    modal.querySelector('.close-modal').addEventListener('click', closeModal);
+    modal.querySelector('#cancelClearBtn').addEventListener('click', closeModal);
+    
+    // Handle outside click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // Handle clear confirmation
+    modal.querySelector('#confirmClearBtn').addEventListener('click', async () => {
+        const clearBtn = modal.querySelector('#confirmClearBtn');
+        const originalText = clearBtn.innerHTML;
+        clearBtn.disabled = true;
+        clearBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Clearing...';
+        
+        const statusDiv = modal.querySelector('#clearStatus');
+        
+        try {
+            const response = await fetch(`${API_BASE_URL}/attendance`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${adminToken}`
+                },
+                body: JSON.stringify({
+                    date: document.getElementById('filterDate').value,
+                    course: document.getElementById('filterCourse').value
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                statusDiv.textContent = data.message || 'Attendance records cleared successfully';
+                statusDiv.className = 'status-message success-message';
+                
+                // Refresh attendance records after a short delay
+                setTimeout(() => {
+                    fetchAttendances();
+                    closeModal();
+                }, 1500);
+            } else {
+                throw new Error(data.error || 'Failed to clear attendance records');
+            }
+        } catch (error) {
+            console.error('Clear attendance error:', error);
+            statusDiv.textContent = error.message;
+            statusDiv.className = 'status-message error-message';
+        } finally {
+            clearBtn.disabled = false;
+            clearBtn.innerHTML = originalText;
+        }
+    });
+});
 
 function resetVerification() {
     document.getElementById('verificationResult').classList.add('hidden');

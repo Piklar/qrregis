@@ -1,17 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 /* Base Styles */
 body {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
-    gap: 3rem;
+    gap:3rem;
     overflow-x: hidden;
+    background-color: #2A2725;
+    /* background-image: url('../images/UA\ BG\ NEW.png'); */
+    background-image: url('../images/UA\ BG.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}
+
+body > * {
+    /* border: 1px solid green; */
 }
 
 img {
     width: 50px;
 }
-
 
 
 /* Hero Section Styles */
@@ -20,36 +31,65 @@ img {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5rem;
+    padding: 3rem;
 
 }
 
-.hero-container > h2 {
+.countdown-container{
+    margin-bottom: 1rem;
+    font-size: .7rem;
+}
+
+.countdown-subtitle{
+    text-align: center;
+    margin-bottom: .5rem;
+    font-weight: bold;
+}
+
+.countdown-timer{
+    display: flex;
+    gap: 1rem;
+}
+.countdown-timer> *{
+    display: flex;
+    gap: .1rem;
+}
+
+
+
+.hero-container > .header-title {
     color: #fff;
-    font-size: 3rem;
-    font-weight: 700;
+    font-size: 5rem;
+    font-weight: 100;
     max-width: 30ch;
     text-align: center;
-    font-family: "Orbitron", sans-serif;
-
+    font-family: "Luxurious Script", cursive;
+}
+.hero-container > .subheader-title {
+    color: #fff;
+    font-size: 5rem;
+    font-weight: 100;
+    max-width: 30ch;
+    text-align: center;
+    font-family: "Playfair Display", serif;
 }
 
-.hero-container > p:nth-child(1){
+.hero-container > .uppertext{
     color: #fff;
-    font-size: .9rem;
+    font-size: .8rem;
     text-align: center;
     margin-top: 1rem;
     margin-bottom:  1rem;
-    font-family: "Orbitron", sans-serif;
 }
 
 .hero-container-subtext{
     margin-top: 1rem;
+    font-family: "Playfair Display", serif;
 }
 
 
 .gradient-text {
-    background: linear-gradient(to right, #D9DADD, #87EBF4); 
+    background: linear-gradient(to right, #fff, #c7a171); 
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -84,47 +124,54 @@ img {
 }
 
 .card {
-    border: 1px solid #000;
+    /* border: 1px solid #000; */
     transition: all 0.3s ease;
     cursor: pointer;
-    border-radius: 1rem;
+    /* border-radius: .5rem; */
+
+
 }
 
 .cards > .card {
     width: 500px;
     height: 300px;
     padding: 3rem;
-    background-color: #000000;
+    /* background-color: #000000; */
+    background-color: transparent;
+    border: .5px dashed #929191;
+    border-radius: .5rem;
 }
 
 .card > i {
     font-size: 3rem;
-    color: #87EBF4;
+    color: #929191;
     padding-block: 1rem;
 }
 
 .card > h3 {
     color: #fff;
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 100;
     margin-top: 1rem;
+    font-family: "Playfair Display", serif;
+
 }
 
 .card > p {
-    color: #404040;
+    color: #8d8c8c;
     font-size: 1rem;
     margin-top: 1rem;
 }
 
 .card:hover {
-    border: 1px solid #222222;
+    border: 1px dashed #d1d1d1;
     transform: translateY(5px);
 }
 
 /* Mobile View (up to 767px) */
 @media (max-width: 767px) {
     body {
-        gap: 1.5rem;
+        gap: 1rem;
     }
 
     img {
@@ -135,16 +182,26 @@ img {
         padding: 1rem;
     }
 
-    .hero-container > h2 {
-        font-size: 1.8rem;
+    .countdown-container{
+    font-size: .4rem;
+    margin-bottom: .1rem;
     }
 
-    .hero-container > p {
+    .hero-container > .header-title,
+    .hero-container > .subheader-title {
+        font-size: 2rem;
+    }
+
+    .hero-container > .uppertext{
         font-size: 0.5rem;
     }
 
+    .hero-container-subtext{
+        font-size: .7rem;
+    }
+
     .cards-container > h2 {
-        font-size: 0.7rem;
+        font-size: 0.5rem;
     }
 
     .cards {
@@ -168,7 +225,7 @@ img {
     }
 
     .card > h3 {
-        font-size: 0.6rem;
+        font-size: 0.7rem;
         margin-top: 0.5rem;
     }
 
@@ -231,7 +288,7 @@ img {
     }
 
     .hero-container {
-        padding: 5rem;
+        padding: 3rem;
     }
 
     .hero-container > h2 {

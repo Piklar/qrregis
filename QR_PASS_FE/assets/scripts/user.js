@@ -10,6 +10,7 @@ document.querySelectorAll('.tab').forEach(tab => {
     });
 });
 
+// const API_BASE_URL = 'http://localhost:4000/api';
 const API_BASE_URL = 'https://qr-pass-system-prod-be.onrender.com/api';
 
 let originalStudentId = '';
@@ -160,7 +161,7 @@ async function proceedWithRegistration() {
         
         if (response.ok) {
             const cookieName = 'dlmLqN+l84dx3G759VPBKxBmtWShFJJLmCSffBbSQ14=' + Date.now();
-            setCookie(cookieName, '1', 48); 
+            setCookie(cookieName, '1', 999); 
             
             alertPopup('Registration successful!');
 
@@ -222,21 +223,108 @@ async function generateStudentQR() {
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            canvas.width = 300;
-            canvas.height = 300;
+            // Set larger canvas size for elegant layout
+            canvas.width = 450;
+            canvas.height = 650;
             
-            QRCode.toCanvas(canvas, data.encryptedData, {
-                width: 250,
-                margin: 2,
-                errorCorrectionLevel: 'H'
-            }, (error) => {
-                if (error) {
-                    console.error('QR generation error:', error);
-                    alertPopup('Failed to generate QR code');
-                } else {
-                    document.getElementById('qrCodeContainer').classList.remove('hidden');
-                }
+            // Draw old money themed background (cream with subtle texture)
+            ctx.fillStyle = '#F5F0E6';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Add subtle texture
+            ctx.fillStyle = 'rgba(210, 190, 150, 0.05)';
+            for (let i = 0; i < 100; i++) {
+                ctx.beginPath();
+                ctx.arc(
+                    Math.random() * canvas.width,
+                    Math.random() * canvas.height,
+                    Math.random() * 3,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.fill();
+            }
+            
+            // Draw elegant border
+            ctx.strokeStyle = '#8B6B3D';
+            ctx.lineWidth = 8;
+            ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
+            
+            // Draw "IT-Night" at the top with elegant font
+            const elegantFont = 'italic 36px "Playfair Display", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif';
+            ctx.fillStyle = '#5C4A2A';
+            ctx.font = elegantFont;
+            ctx.textAlign = 'center';
+            // Draw the text with a slight shadow for depth
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+            ctx.shadowBlur = 3;
+            ctx.shadowOffsetX = 1;
+            ctx.shadowOffsetY = 1;
+            ctx.fillText('La Nuit Elitaire', canvas.width/2, 70);
+            ctx.shadowColor = 'transparent';
+            
+            // Add decorative line under title
+            ctx.strokeStyle = '#8B6B3D';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2 - 100, 85);
+            ctx.lineTo(canvas.width/2 + 100, 85);
+            ctx.stroke();
+            
+            // Generate QR code in the middle
+            const qrSize = 280;
+            const qrX = (canvas.width - qrSize) / 2;
+            const qrY = 120;
+            
+            // Create a temporary canvas for QR code
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = qrSize;
+            tempCanvas.height = qrSize;
+            
+            await new Promise((resolve, reject) => {
+                QRCode.toCanvas(tempCanvas, data.encryptedData, {
+                    width: qrSize,
+                    margin: 2,
+                    errorCorrectionLevel: 'H',
+                    color: {
+                        dark: '#5C4A2A', // Dark brown for QR code
+                        light: '#F5F0E600' // Transparent background
+                    }
+                }, (error) => {
+                    if (error) {
+                        reject(error);
+                        console.error('QR generation error:', error);
+                        alertPopup('Failed to generate QR code');
+                    } else {
+                        resolve();
+                    }
+                });
             });
+            
+            // Draw QR code onto main canvas with shadow
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+            ctx.shadowBlur = 10;
+            ctx.shadowOffsetY = 5;
+            ctx.drawImage(tempCanvas, qrX, qrY);
+            ctx.shadowColor = 'transparent';
+            
+            // Draw elegant invitation text at the bottom
+            ctx.fillStyle = '#5C4A2A';
+            ctx.font = 'italic 22px "Times New Roman", serif';
+            ctx.fillText('You are cordially invited to', canvas.width/2, qrY + qrSize + 50);
+            
+            ctx.font = 'bold 22px "Times New Roman", serif';
+            ctx.fillText('The Annual IT Night Celebration', canvas.width/2, qrY + qrSize + 85);
+            
+            ctx.font = '18px "Times New Roman", serif';
+            ctx.fillText('Present this QR code for entry', canvas.width/2, qrY + qrSize + 120);
+            
+            // Add small decorative elements
+            ctx.fillStyle = '#8B6B3D';
+            ctx.font = '14px "Times New Roman", serif';
+            ctx.fillText(studentId, canvas.width/2, qrY + qrSize + 150);
+            
+            document.getElementById('qrCodeContainer').classList.remove('hidden');
         } else {
             alertPopup(data.error || 'Failed to generate QR code');
         }
@@ -256,7 +344,7 @@ function downloadQRCode() {
     const studentId = canvas.dataset.studentId || '';
     const studentName = canvas.dataset.studentName || 'student';
     
-    let filename = 'TechKadaPass';
+    let filename = 'IT_Night_Invitation';
     if (studentId) filename += `_${studentId}`;
     if (studentName) {
         const cleanName = studentName.replace(/[^\w\s]/gi, '').replace(/\s+/g, '_');
@@ -264,19 +352,9 @@ function downloadQRCode() {
     }
     filename += '.png';
 
-    const tempCanvas = document.createElement('canvas');
-    tempCanvas.width = canvas.width;
-    tempCanvas.height = canvas.height;
-    const tempCtx = tempCanvas.getContext('2d');
-
-    tempCtx.fillStyle = '#ffffff';
-    tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-
-    tempCtx.drawImage(canvas, 0, 0);
-
     const link = document.createElement('a');
     link.download = filename;
-    link.href = tempCanvas.toDataURL('image/png');
+    link.href = canvas.toDataURL('image/png');
     link.click();
 }
 
@@ -312,7 +390,7 @@ async function populateCourseSelects() {
             while (select.options.length > 1) {
                 select.remove(1);
             }
-            select.innerHTML += '<option value="" disabled>Loading year level & sections...</option>';
+            select.innerHTML += '<option value="" disabled>Choose your Year level & Section</option>';
         }
     });
     

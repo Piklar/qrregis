@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
+    <title>INNOVAIT 2025 - Student Portal</title>
 
     <link rel="icon" type="image/x-icon" href="./assets/images/UAQR COLORED LOGO TECHKADA ICON.png" />
 
@@ -19,6 +19,8 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
+    
+
     <!-- CSS Files -->
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/alert.css">
@@ -43,7 +45,7 @@
 
     <!-- Main Container -->
     <main class="main-container">
-        <h1 class="title">TechKada QR Pass</h1>
+        <h1 class="title">INNOVAIT 2025 QR Pass</h1>
     
         <div class="tabs">
             <div class="tab active" data-tab="register">
@@ -65,7 +67,7 @@
                         <input type="number" id="studentId" placeholder="Enter UA Student ID">
                     </div>
                     <div class="form-group">
-                        <label for="studentName">Full Name</label>
+                        <label for="studentName">Full Name <span>(e.g., Juan Dela Cruz)</span></label>
                         <input type="text" id="studentName" placeholder="Enter Full Name">
                     </div>
                 </div>
@@ -86,8 +88,8 @@
         <!-- Generate QR Tab -->
         <div id="generate" class="tab-content">
             <div class="form-group">
-                <label for="qrStudentId">Student ID</label>
-                <input type="text" id="qrStudentId" placeholder="Enter student ID">
+                <label for="qrStudentId">UA Student ID</label>
+                <input type="text" id="qrStudentId" placeholder="Enter UA Student ID">
             </div>
     
             <div class="form-group">
@@ -103,7 +105,7 @@
     
             <div id="qrCodeContainer" class="hidden">
                 <div class="qr-border">
-                    <h3>TechKada QR Pass</h3>
+                    <h3>IT-Night QR Pass</h3>
                     <canvas id="qrCodeCanvas"></canvas>
                     <div class="qr-actions">
                         <button id="downloadBtn" class="download-qr-btn">
