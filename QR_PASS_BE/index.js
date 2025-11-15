@@ -14,13 +14,14 @@ connectDB();
 //         CORS WHITELIST
 // =============================
 const whitelist = [
-  'http://127.0.0.1:5500',  // Local HTML / Live Server
-  'http://localhost:3000',  // Local React or frontend
-  'innovaitqr.vercel.app' // Replace later
+  'https://innovaitqr.vercel.app',  // Your deployed frontend
+  'http://127.0.0.1:5500',          // Local HTML / Live Server
+  'http://localhost:3000'           // React local dev
 ];
 
 const corsOptions = {
   origin: function (origin, callback) {
+    // Allow if origin is in whitelist OR if no origin (ex: Postman)
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
