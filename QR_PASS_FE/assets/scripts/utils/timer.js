@@ -1,6 +1,6 @@
 // Set the date we're counting down to (YYYY, MM-1, DD, HH, MM, SS)
 // Note: Months are 0-based in JavaScript (0 = January, 11 = December)
-const eventDate = new Date(2025, 4, 28, 17, 0, 0); // December 31, 2024 at 6:00 PM
+const eventDate = new Date(2025, 10, 17, 8, 0, 0); // Nov 17, 2025 at 8:00 AM
 
 // Update the countdown every 1 second
 const countdown = setInterval(function() {
