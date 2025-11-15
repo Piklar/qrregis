@@ -1,7 +1,7 @@
 import alertPopup from "./utils/alert.js";
 
 // const API_BASE_URL = 'http://localhost:4000/api';
-const API_BASE_URL = 'https://qr-pass-system-prod-be.onrender.com/api';
+const API_BASE_URL = 'https://qrregis.onrender.com';
 
 let adminToken = null;
 let currentEditingCourseId = null;
