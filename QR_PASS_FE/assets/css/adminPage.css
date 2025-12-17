@@ -46,8 +46,10 @@ h1, h2, h3 {
     gap: 12px;
 }
 
+/* --- FIXED: Prevent squished logo --- */
 .header-title img {
-    width: 50px;
+    height: 50px; /* Fixed height */
+    width: auto;  /* Auto width */
     padding: 0;
     user-select: none;
 }
@@ -252,7 +254,7 @@ tr.absent { background-color: rgba(220, 53, 69, 0.15); }
     .tabs { height: 40px; gap: 5px; }
     .tab { font-size: 0.7rem; padding: 0 0.8rem; }
     .admin-header h1 { font-size: 1.1rem; }
-    .header-title img { width: 35px; }
+    .header-title img { height: 35px; } /* Mobile logo height */
     .filter-section, .management-section { padding: 1.2rem; }
     input, select, .primary-btn { height: 42px; font-size: 0.8rem; }
 }

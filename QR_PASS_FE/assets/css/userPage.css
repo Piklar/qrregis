@@ -19,12 +19,16 @@ body {
     align-items: center;
     min-height: 100vh;
     background-color: #041836;
-    /* Sophisticated radial gradient for the forum theme */
     background: radial-gradient(circle at top, #0a3575 0%, #041836 100%);
     background-attachment: fixed;
 }
 
-img { width: 50px; margin-bottom: 10px; }
+/* --- FIXED: Changed fixed width to fixed height and auto width --- */
+img { 
+    height: 50px; 
+    width: auto; 
+    margin-bottom: 10px; 
+}
 
 /* Main Glass Container */
 .main-container {
@@ -41,6 +45,7 @@ img { width: 50px; margin-bottom: 10px; }
     margin-top: 20px;
 }
 
+/* ... [Rest of the CSS remains the same as previous turn] ... */
 h1.title {
     font-size: 26px;
     font-weight: 700;
