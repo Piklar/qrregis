@@ -1,5 +1,6 @@
 import alertPopup from "./utils/alert.js";
 
+// Tab Switching Logic
 document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', () => {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -10,11 +11,10 @@ document.querySelectorAll('.tab').forEach(tab => {
     });
 });
 
-// const API_BASE_URL = 'http://localhost:4000/api';
 const API_BASE_URL = 'https://qrregis.onrender.com/api';
-
 let originalStudentId = '';
 
+// --- Cookie Utilities ---
 function setCookie(name, value, hours) {
     const date = new Date();
     date.setTime(date.getTime() + (hours * 60 * 60 * 1000));
@@ -22,49 +22,37 @@ function setCookie(name, value, hours) {
     document.cookie = name + "=" + value + ";" + expires + ";path=/";
 }
 
-function getCookie(name) {
-    const cookieName = name + "=";
-    const cookies = document.cookie.split(';');
-    for(let i = 0; i < cookies.length; i++) {
-        let cookie = cookies[i].trim();
-        if (cookie.indexOf(cookieName) === 0) {
-            return cookie.substring(cookieName.length, cookie.length);
-        }
-    }
-    return "";
-}
-
 function countRegistrationCookies() {
     const cookies = document.cookie.split(';');
+    // Specific hash used for student registration tracking
     return cookies.filter(cookie => cookie.trim().startsWith('dlmLqN+l84dx3G759VPBKxBmtWShFJJLmCSffBbSQ14=')).length;
 }
 
 function showRegistrationLimitModal() {
     const modal = document.createElement('div');
     modal.className = 'modal';
+    modal.style.display = 'flex';
     modal.innerHTML = `
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Registration Limit Reached</h2>
                 <button class="close-modal">&times;</button>
             </div>
-            <p>You have reached the maximum number of registrations allowed.</p>
+            <p>You have already registered for this event. Duplicate registrations are not allowed.</p>
             <div class="modal-actions">
                 <button class="primary-btn close-modal">OK</button>
             </div>
         </div>
     `;
     document.body.appendChild(modal);
-    modal.style.display = 'flex';
 
     const closeButtons = modal.querySelectorAll('.close-modal');
     closeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            modal.remove();
-        });
+        button.addEventListener('click', () => modal.remove());
     });
 }
 
+// --- Registration Logic ---
 document.getElementById('registerBtn').addEventListener('click', () => {
     const studentId = document.getElementById('studentId').value.trim();
     const name = document.getElementById('studentName').value.trim();
@@ -86,7 +74,6 @@ document.getElementById('registerBtn').addEventListener('click', () => {
     }
 
     originalStudentId = studentId;
-    
     showVerificationModal();
 });
 
@@ -107,82 +94,55 @@ function hideVerificationModal() {
 }
 
 closeModalBtn.addEventListener('click', hideVerificationModal);
-
 cancelVerifyBtn.addEventListener('click', hideVerificationModal);
-
-verificationModal.addEventListener('click', (e) => {
-    if (e.target === verificationModal) {
-        hideVerificationModal();
-    }
-});
-
 confirmVerifyBtn.addEventListener('click', () => {
     const verifiedStudentId = verifyStudentIdInput.value.trim();
-    
-    if (!verifiedStudentId) {
-        alertPopup('Please enter your Student ID');
-        return;
-    }
-    
     if (verifiedStudentId !== originalStudentId) {
         alertPopup('Student ID does not match. Please try again.');
-        verifyStudentIdInput.value = '';
-        verifyStudentIdInput.focus();
         return;
     }
-    
     hideVerificationModal();
     proceedWithRegistration();
 });
 
 async function proceedWithRegistration() {
-    const studentId = originalStudentId;
     const name = document.getElementById('studentName').value.trim();
     const course = document.getElementById('registerCourse').value;
-    
     const registerBtn = document.getElementById('registerBtn');
+    
     registerBtn.disabled = true;
     registerBtn.textContent = 'Registering...';
     
     try {
         const response = await fetch(`${API_BASE_URL}/register`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                studentId,
-                name,
-                courseName: course
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ studentId: originalStudentId, name, courseName: course })
         });
         
         const data = await response.json();
-        
         if (response.ok) {
             const cookieName = 'dlmLqN+l84dx3G759VPBKxBmtWShFJJLmCSffBbSQ14=' + Date.now();
             setCookie(cookieName, '1', 999); 
+            alertPopup('Registration successful! You may now generate your pass.');
             
-            alertPopup('Registration successful!');
-
+            // Clear inputs and switch to Generate tab
             document.getElementById('studentId').value = '';
             document.getElementById('studentName').value = '';
-            document.getElementById('registerCourse').value = '';
+            document.querySelector('[data-tab="generate"]').click();
+            document.getElementById('qrStudentId').value = originalStudentId;
         } else {
             alertPopup(data.error || 'Registration failed');
         }
     } catch (error) {
-        console.error('Registration error:', error);
-        alertPopup('Registration failed. Please try again.');
+        alertPopup('Registration failed. Please check your connection.');
     } finally {
         registerBtn.disabled = false;
         registerBtn.textContent = 'Register Student';
     }
 }
 
-document.getElementById('generateQrBtn').addEventListener('click', generateStudentQR);
-document.getElementById('downloadBtn').addEventListener('click', downloadQRCode);
-
+// --- QR Pass Generation (Canvas Stylized) ---
 async function generateStudentQR() {
     const studentId = document.getElementById('qrStudentId').value.trim();
     const course = document.getElementById('qrCourse').value;
@@ -204,153 +164,101 @@ async function generateStudentQR() {
     try {
         const response = await fetch(`${API_BASE_URL}/generate-qr`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                studentId,
-                courseName: course
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ studentId, courseName: course })
         });
         
         const data = await response.json();
         
         if (response.ok) {
-            document.getElementById('qrCodeCanvas').dataset.studentId = studentId;
-            document.getElementById('qrCodeCanvas').dataset.studentName = data.studentName || 'student';
-            
             const canvas = document.getElementById('qrCodeCanvas');
+            canvas.dataset.studentId = studentId;
+            canvas.dataset.studentName = data.studentName || 'student';
+            
             const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.width = 400;
+            canvas.height = 600;
             
-            // Set larger canvas size for elegant layout
-            canvas.width = 450;
-            canvas.height = 650;
-            
-            // Draw old money themed background (cream with subtle texture)
-            ctx.fillStyle = '#F5F0E6';
+            // 1. Background
+            ctx.fillStyle = '#FFFFFF';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Add subtle texture
-            ctx.fillStyle = 'rgba(210, 190, 150, 0.05)';
-            for (let i = 0; i < 100; i++) {
-                ctx.beginPath();
-                ctx.arc(
-                    Math.random() * canvas.width,
-                    Math.random() * canvas.height,
-                    Math.random() * 3,
-                    0,
-                    Math.PI * 2
-                );
-                ctx.fill();
-            }
+            // 2. Header (Deep Blue)
+            ctx.fillStyle = '#072758';
+            ctx.fillRect(0, 0, canvas.width, 140);
             
-            // Draw elegant border
-            ctx.strokeStyle = '#8B6B3D';
-            ctx.lineWidth = 8;
-            ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
-            
-            // Draw "IT-Night" at the top with elegant font
-            const elegantFont = 'italic 36px "Playfair Display", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif';
-            ctx.fillStyle = '#5C4A2A';
-            ctx.font = elegantFont;
+            // 3. Header Text
+            ctx.fillStyle = '#FFFFFF';
             ctx.textAlign = 'center';
-            // Draw the text with a slight shadow for depth
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
-            ctx.shadowBlur = 3;
-            ctx.shadowOffsetX = 1;
-            ctx.shadowOffsetY = 1;
-            ctx.fillText('𝐈𝐍𝐍𝐎𝐕𝐀𝐈𝐓 𝟐𝟎𝟐𝟓', canvas.width/2, 70);
-            ctx.shadowColor = 'transparent';
+            ctx.font = 'bold 28px "Playfair Display", serif';
+            ctx.fillText('CREARE ET INNOVARE', canvas.width/2, 60);
+            ctx.font = 'bold 24px "Playfair Display", serif';
+            ctx.fillText('2026', canvas.width/2, 90);
+            ctx.fillStyle = '#EBEBEB';
+            ctx.font = 'italic 12px "Open Sans", sans-serif';
+            ctx.fillText('The Research Forum', canvas.width/2, 115);
             
-            // Add decorative line under title
-            ctx.strokeStyle = '#8B6B3D';
-            ctx.lineWidth = 1.5;
-            ctx.beginPath();
-            ctx.moveTo(canvas.width/2 - 100, 85);
-            ctx.lineTo(canvas.width/2 + 100, 85);
-            ctx.stroke();
-            
-            // Generate QR code in the middle
-            const qrSize = 280;
+            // 4. Generate QR Code
+            const qrSize = 250;
             const qrX = (canvas.width - qrSize) / 2;
-            const qrY = 120;
+            const qrY = 180;
             
-            // Create a temporary canvas for QR code
             const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = qrSize;
-            tempCanvas.height = qrSize;
-            
-            await new Promise((resolve, reject) => {
-                QRCode.toCanvas(tempCanvas, data.encryptedData, {
-                    width: qrSize,
-                    margin: 2,
-                    errorCorrectionLevel: 'H',
-                    color: {
-                        dark: '#5C4A2A', // Dark brown for QR code
-                        light: '#F5F0E600' // Transparent background
-                    }
-                }, (error) => {
-                    if (error) {
-                        reject(error);
-                        console.error('QR generation error:', error);
-                        alertPopup('Failed to generate QR code');
-                    } else {
-                        resolve();
-                    }
-                });
+            await QRCode.toCanvas(tempCanvas, data.encryptedData, {
+                width: qrSize,
+                margin: 1,
+                color: { dark: '#072758', light: '#FFFFFF' }
             });
             
-            // Draw QR code onto main canvas with shadow
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
-            ctx.shadowBlur = 10;
-            ctx.shadowOffsetY = 5;
             ctx.drawImage(tempCanvas, qrX, qrY);
-            ctx.shadowColor = 'transparent';
             
-            // Draw elegant invitation text at the bottom
-            ctx.fillStyle = '#5C4A2A';
-            ctx.font = 'italic 22px "Times New Roman", serif';
-            ctx.fillText('You are cordially invited to', canvas.width/2, qrY + qrSize + 50);
+            // QR Border
+            ctx.strokeStyle = '#072758';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(qrX - 10, qrY - 10, qrSize + 20, qrSize + 20);
             
-            ctx.font = 'bold 22px "Times New Roman", serif';
-            ctx.fillText('Transforming Visions into Innovations!', canvas.width/2, qrY + qrSize + 85);
+            // 5. Footer Details
+            const footerY = 480;
+            ctx.fillStyle = '#072758';
+            ctx.font = 'bold 18px "Open Sans", sans-serif';
+            ctx.fillText((data.studentName || 'Student').toUpperCase(), canvas.width/2, footerY);
+            ctx.font = '14px "Open Sans", sans-serif';
+            ctx.fillStyle = '#555555';
+            ctx.fillText(studentId, canvas.width/2, footerY + 25);
             
-            ctx.font = '18px "Times New Roman", serif';
-            ctx.fillText('Present this QR code for entry', canvas.width/2, qrY + qrSize + 120);
+            // Divider
+            ctx.beginPath();
+            ctx.moveTo(100, footerY + 45);
+            ctx.lineTo(300, footerY + 45);
+            ctx.strokeStyle = '#EBEBEB';
+            ctx.stroke();
             
-            // Add small decorative elements
-            ctx.fillStyle = '#8B6B3D';
-            ctx.font = '14px "Times New Roman", serif';
-            ctx.fillText(studentId, canvas.width/2, qrY + qrSize + 150);
-            
+            // Event Info
+            ctx.fillStyle = '#072758';
+            ctx.font = 'bold 12px "Open Sans", sans-serif';
+            ctx.fillText('JANUARY 21, 2026', canvas.width/2, footerY + 70);
+            ctx.font = '10px "Open Sans", sans-serif';
+            ctx.fillText('MSGR. SERRANO AUDITORIUM', canvas.width/2, footerY + 85);
+
             document.getElementById('qrCodeContainer').classList.remove('hidden');
         } else {
             alertPopup(data.error || 'Failed to generate QR code');
         }
     } catch (error) {
-        console.error('QR generation error:', error);
-        alertPopup('Failed to generate QR code. Please try again.');
+        alertPopup('Server error while generating QR.');
     } finally {
         generateBtn.disabled = false;
-        generateBtn.textContent = 'Generate QR Pass';
+        generateBtn.textContent = 'Generate Pass';
     }
 }
 
+// --- Download Utilities ---
 function downloadQRCode() {
     const canvas = document.getElementById('qrCodeCanvas');
-    if (!canvas) return;
-
     const studentId = canvas.dataset.studentId || '';
-    const studentName = canvas.dataset.studentName || 'student';
+    const name = canvas.dataset.studentName || 'Student';
     
-    let filename = 'INNOVAIT_2025_Pass';
-    if (studentId) filename += `_${studentId}`;
-    if (studentName) {
-        const cleanName = studentName.replace(/[^\w\s]/gi, '').replace(/\s+/g, '_');
-        filename += `_${cleanName}`;
-    }
-    filename += '.png';
+    let filename = `Research_Forum_Pass_2026_${studentId}_${name.replace(/\s+/g, '_')}.png`;
 
     const link = document.createElement('a');
     link.download = filename;
@@ -358,70 +266,30 @@ function downloadQRCode() {
     link.click();
 }
 
-
-
-async function loadCourses() {
+// --- Course Loading ---
+async function populateCourseSelects() {
+    const selects = ['registerCourse', 'qrCourse'];
     try {
         const response = await fetch(`${API_BASE_URL}/courses`);
         const data = await response.json();
         
         if (response.ok) {
-            return data.courses;
-        } else {
-            throw new Error(data.error || 'Failed to load courses');
+            selects.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                data.courses.forEach(course => {
+                    const opt = document.createElement('option');
+                    opt.value = course.name;
+                    opt.textContent = course.name;
+                    el.appendChild(opt);
+                });
+            });
         }
-    } catch (error) {
-        console.error('Course loading error:', error);
-        alertPopup('Failed to load year level & sections. Please try again later.');
-        return [];
+    } catch (err) {
+        console.error('Failed to load courses');
     }
 }
 
-async function populateCourseSelects() {
-    const selects = [
-        'registerCourse',
-        'qrCourse',
-    ];
-    
-    selects.forEach(selectId => {
-        const select = document.getElementById(selectId);
-        if (select) {
-            select.disabled = true;
-            while (select.options.length > 1) {
-                select.remove(1);
-            }
-            select.innerHTML += '<option value="" disabled>Choose your Year level & Section</option>';
-        }
-    });
-    
-    const courses = await loadCourses();
-    
-    selects.forEach(selectId => {
-        const select = document.getElementById(selectId);
-        if (select) {
-            while (select.options.length > 1) {
-                select.remove(1);
-            }
-            
-            if (select.options.length === 0) {
-                const defaultOption = document.createElement('option');
-                defaultOption.value = '';
-                defaultOption.textContent = selectId === 'filterCourse' ? 'All Year level and section' : 'Select your year level and section';
-                select.appendChild(defaultOption);
-            }
-            
-            courses.forEach(course => {
-                const option = document.createElement('option');
-                option.value = course.name;
-                option.textContent = course.name;
-                select.appendChild(option);
-            });
-            
-            select.disabled = false;
-        }
-    });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    populateCourseSelects();
-});
+document.addEventListener('DOMContentLoaded', populateCourseSelects);
+document.getElementById('generateQrBtn').addEventListener('click', generateStudentQR);
+document.getElementById('downloadBtn').addEventListener('click', downloadQRCode);

@@ -1,32 +1,30 @@
-// Set the date we're counting down to (YYYY, MM-1, DD, HH, MM, SS)
-// Note: Months are 0-based in JavaScript (0 = January, 11 = December)
-const eventDate = new Date(2025, 10, 17, 8, 0, 0); // Nov 17, 2025 at 8:00 AM
+// Month is 0-indexed (0=Jan), so Jan 21 2026 is (2026, 0, 21)
+const eventDate = new Date(2026, 0, 21, 8, 0, 0); 
 
-// Update the countdown every 1 second
 const countdown = setInterval(function() {
-    // Get today's date and time
     const now = new Date().getTime();
-    
-    // Find the distance between now and the event date
     const distance = eventDate - now;
     
-    // If the countdown is finished
     if (distance < 0) {
         clearInterval(countdown);
-        document.querySelector('.countdown-subtitle').textContent = "Thank you for joining us – the event has concluded.";
-        document.querySelector('.countdown-timer').style.display = 'none';
+        // Safety check if elements exist on page (in case script runs on page without timer)
+        const sub = document.querySelector('.countdown-subtitle');
+        if(sub) sub.textContent = "Event Started";
+        const timerDiv = document.querySelector('.countdown-timer');
+        if(timerDiv) timerDiv.style.display = 'none';
         return;
     }
     
-    // Time calculations for days, hours, minutes and seconds
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
     
-    // Display the result
-    document.getElementById('days').textContent = days.toString().padStart(2, '0');
-    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+    const elDays = document.getElementById('days');
+    if(elDays) {
+        elDays.textContent = days.toString().padStart(2, '0');
+        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+    }
 }, 1000);
