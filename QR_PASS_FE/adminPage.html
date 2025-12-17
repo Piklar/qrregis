@@ -9,7 +9,6 @@
     <link rel="icon" type="image/png" href="./assets/images/cei2026f.png" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
     <script defer src="./assets/scripts/utils/animation.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
@@ -20,20 +19,22 @@
     <link rel="stylesheet" href="./assets/css/blobAnimation.css">
 </head>
 <body>
+    
+    <!-- Login Section -->
     <div class="login-main-container">
         <div class="blob-outer-container">
-            <div class="blob-inner-container">
-                <div class="blob"></div>
-            </div>
+            <div class="blob-inner-container"><div class="blob"></div></div>
         </div>
 
         <div id="adminLogin" class="login-container">
-            <img src="./assets/images/cei2026f.png" alt="Creare et Innovare 2026" style="height: 60px; width: auto; margin-bottom: 1rem;">
-            <h2 class="login-title">Admin Login</h2>
+            <img src="./assets/images/cei2026f.png" alt="Creare et Innovare 2026" style="height: 80px; width: auto; margin-bottom: 1rem; align-self: center;">
+            <h2 class="login-title">Admin Access</h2>
+            
             <div class="form-group">
                 <label for="adminUsername">Username</label>
-                <input type="text" id="adminUsername" placeholder="Enter username">
+                <input type="text" id="adminUsername" placeholder="Enter credentials">
             </div>
+            
             <div class="form-group">
                 <label for="adminPassword">Password</label>
                 <div class="password-input-container">
@@ -43,19 +44,20 @@
                     </button>
                 </div>
             </div>
-            <button id="adminLoginBtn" class="login-btn">Login to Dashboard</button>
+            
+            <button id="adminLoginBtn" class="login-btn">Secure Login</button>
             <div id="adminLoginStatus" class="login-error hidden">
-                <i class="fa-solid fa-circle-exclamation"></i>
-                <span></span>
+                <i class="fa-solid fa-circle-exclamation"></i> <span></span>
             </div>
         </div>
     </div>
     
+    <!-- Dashboard Section -->
     <div id="adminDashboard" class="container hidden">
         <div class="admin-header">
             <div class="header-title">
                 <a href="./index.html">
-                    <img src="./assets/images/cei2026f.png" alt="Creare et Innovare Logo" class="nav-logo">
+                    <img src="./assets/images/cei2026f.png" alt="Logo" class="nav-logo">
                 </a>
                 <h1>Research Forum Admin</h1>
             </div>
@@ -77,41 +79,44 @@
             </div>
         </div>
         
+        <!-- Tab 1: Course Management -->
         <div id="course-management" class="tab-content active">
             <div class="management-section">
-                <h2 class="section-title">Year Level & Section Management</h2>
+                <h2 class="section-title">Manage Sections</h2>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="courseName">Year Level & Section</label>
                         <input type="text" id="courseName" placeholder="e.g., BSIT 4-A">
                     </div>
                     <div class="form-group">
-                        <label for="courseKey">Encryption Key (min 16 characters)</label>
+                        <label for="courseKey">Encryption Key</label>
                         <div class="key-input-container">
-                            <input type="text" id="courseKey" placeholder="Enter encryption key">
+                            <input type="text" id="courseKey" placeholder="Min. 16 characters">
                             <button id="generateKeyBtn" class="generate-key-btn" type="button">
-                                <i class="fa-solid fa-key"></i> Generate Key
+                                <i class="fa-solid fa-key"></i> Generate
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="action-buttons">
-                    <button id="addCourseBtn" class="primary-btn"><i class="fa-solid fa-plus"></i> Add Year & Section</button>
-                    <button id="updateCourseBtn" class="success-btn hidden">Update Record</button>
+                    <button id="addCourseBtn" class="primary-btn"><i class="fa-solid fa-plus"></i> Add Section</button>
+                    <button id="updateCourseBtn" class="success-btn hidden">Update</button>
                     <button id="cancelUpdateBtn" class="danger-btn hidden">Cancel</button>
                 </div>
                 <div id="courseStatus" class="status-message hidden"></div>
                 
-                <table class="courses-table">
-                    <thead>
-                        <tr>
-                            <th>Year Level & Section</th>
-                            <th>Created At</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="coursesTableBody"></tbody>
-                </table>
+                <div class="table-container">
+                    <table class="courses-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Created Date</th>
+                                <th style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="coursesTableBody"></tbody>
+                    </table>
+                </div>
                 <div class="pagination">
                     <button class="pagination-btn" id="prevCoursePage" disabled><i class="fa-solid fa-chevron-left"></i></button>
                     <span class="page-info" id="coursePageInfo">Page 1</span>
@@ -120,6 +125,7 @@
             </div>
         </div>
         
+        <!-- Tab 2: Attendance Records -->
         <div id="attendance-records" class="tab-content">
             <div class="filter-section">
                 <h2 class="section-title">Attendance Monitoring</h2>
@@ -129,17 +135,17 @@
                         <input type="date" id="filterDate">
                     </div>
                     <div class="form-group">
-                        <label for="filterCourse">Filter by Year & Section</label>
+                        <label for="filterCourse">Filter by Section</label>
                         <select id="filterCourse">
-                            <option value="">All Years & Sections</option>
+                            <option value="">All Sections</option>
                         </select>
                     </div>
                 </div>
                 <div class="attendance-btn-container">
                     <button id="filterBtn" class="filter-btn">Apply Filters</button>
-                    <button id="downloadPdfBtn" class="filter-btn">Download PDF Report</button>
-                    <button id="clearAttendanceBtn" class="danger-btn">
-                        <i class="fa-solid fa-trash"></i> Clear Records
+                    <button id="downloadPdfBtn" class="filter-btn"><i class="fa-solid fa-file-pdf"></i> Download Report</button>
+                    <button id="clearAttendanceBtn" class="danger-btn" style="margin-left: auto;">
+                        <i class="fa-solid fa-trash"></i> Clear Data
                     </button>
                 </div>
             </div>
@@ -151,7 +157,7 @@
                             <tr>
                                 <th>Student ID</th>
                                 <th>Name</th>
-                                <th>Year Level & Section</th>
+                                <th>Section</th>
                                 <th>Time In</th>
                                 <th>Time Out</th>
                                 <th>Date</th>
@@ -168,42 +174,44 @@
             </div>
         </div>
 
+        <!-- Tab 3: Verify QR -->
         <div id="verify" class="tab-content">
             <div class="form-group">
-                <label for="verifyCourse">Verification Target (Year Level & Section)</label>
+                <label for="verifyCourse">Target Section</label>
                 <select id="verifyCourse">
-                    <option value="">Select Target...</option>
+                    <option value="">Select Section to Verify...</option>
                 </select>
             </div>
             
             <div class="decrypt-options">
-                <button class="scan-btn" id="scanBtn">Start Camera Scanner</button>
-                <button class="stop-scan-btn hidden" id="stopScanBtn">
-                    <i class="fa-solid fa-stop"></i> Stop Scanner
+                <button class="scan-btn" id="scanBtn"><i class="fa-solid fa-camera"></i> Start Camera</button>
+                <button class="stop-scan-btn hidden" id="stopScanBtn" style="background-color: #d9534f; color: white; padding: 12px 24px; border-radius: 8px; border:none; font-weight:600;">
+                    <i class="fa-solid fa-stop"></i> Stop Camera
                 </button>
             </div>
             
             <div id="scannerContainer" class="hidden">
                 <video id="scanner"></video>
-                <div id="cameraStatus">Initializing camera...</div>
+                <div id="cameraStatus" style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); padding: 5px 10px; border-radius: 4px; font-size: 12px;">Initializing...</div>
             </div>
             
             <div id="verificationResult" class="hidden">
                 <div id="verificationMessage"></div>
-                <button id="newVerifyBtn" class="primary-btn">
-                    <i class="fa-solid fa-qrcode"></i> Scan Another Participant
+                <button id="newVerifyBtn" class="primary-btn" style="margin-top: 15px;">
+                    <i class="fa-solid fa-qrcode"></i> Scan Next
                 </button>
             </div>
         </div>
     </div>
 
+    <!-- Modals -->
     <div id="editCourseModal" class="modal">
         <div class="modal-content">
             <div class="modal-header"><h2>Edit Record</h2><button class="close-modal">&times;</button></div>
             <div class="form-group"><label>Name</label><input type="text" id="editCourseName"></div>
             <div class="form-group"><label>Encryption Key</label><input type="text" id="editCourseKey"></div>
             <div class="action-buttons">
-                <button id="saveCourseBtn" class="primary-btn">Save Changes</button>
+                <button id="saveCourseBtn" class="primary-btn">Save</button>
                 <button id="cancelEditBtn" class="danger-btn">Cancel</button>
             </div>
         </div>
@@ -211,10 +219,10 @@
 
     <div id="deleteCourseModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header"><h2>Confirm Deletion</h2><button class="close-modal">&times;</button></div>
-            <p id="deleteCourseMessage">Are you sure you want to remove this Year Level & Section?</p>
+            <div class="modal-header"><h2>Delete Record</h2><button class="close-modal">&times;</button></div>
+            <p id="deleteCourseMessage">Are you sure?</p>
             <div class="action-buttons">
-                <button id="confirmDeleteBtn" class="danger-btn">Delete Permanently</button>
+                <button id="confirmDeleteBtn" class="danger-btn">Delete</button>
                 <button id="cancelDeleteBtn" class="primary-btn">Cancel</button>
             </div>
         </div>
