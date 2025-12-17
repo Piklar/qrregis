@@ -37,7 +37,7 @@ a:hover {
     opacity: 0.8;
 }
 
-/* Navigation */
+/* --- NAVIGATION --- */
 .nav {
     display: flex;
     justify-content: center;
@@ -55,7 +55,19 @@ a:hover {
     font-size: 0.9rem;
 }
 
-/* Utility Layout Classes */
+/* Logo Styling within Nav */
+.nav-logo {
+    height: 60px; /* Fixed height for consistency */
+    width: auto;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+}
+
+.nav-logo:hover {
+    transform: scale(1.05);
+}
+
+/* --- UTILITY LAYOUT --- */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -70,7 +82,7 @@ a:hover {
     margin-bottom: 1rem;
 }
 
-/* Common Table Styling (Matches PDF Style) */
+/* --- TABLE STYLING --- */
 .attendance-table {
     width: 100%;
     border-collapse: collapse;
@@ -91,4 +103,19 @@ a:hover {
 .attendance-table td {
     padding: 12px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 768px) {
+    .nav-logo {
+        height: 45px;
+    }
+    
+    .heading-title {
+        font-size: 1.8rem;
+    }
+
+    .nav {
+        gap: 1rem;
+    }
 }
