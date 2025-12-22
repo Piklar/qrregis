@@ -23,13 +23,6 @@ body {
     background-attachment: fixed;
 }
 
-/* --- FIXED: Changed fixed width to fixed height and auto width --- */
-img { 
-    height: 50px; 
-    width: auto; 
-    margin-bottom: 10px; 
-}
-
 /* Main Glass Container */
 .main-container {
     background-color: rgba(7, 39, 88, 0.45);

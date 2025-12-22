@@ -14,9 +14,9 @@ connectDB();
 //         CORS WHITELIST
 // =============================
 const whitelist = [
-  'https://creareqr.vercel.app/',  // Your deployed frontend
-  'http://127.0.0.1:5500',          // Local HTML / Live Server
-  'http://localhost:3000'           // React local dev
+  'https://creareqr.vercel.app',   // <--- Remove the trailing slash
+  'http://127.0.0.1:5500',
+  'http://localhost:3000'
 ];
 
 const corsOptions = {
