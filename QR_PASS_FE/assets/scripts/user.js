@@ -234,9 +234,8 @@ async function generateStudentQR() {
             // Event Info
             ctx.fillStyle = '#4B3B7A';
             ctx.font = 'bold 12px "Open Sans", sans-serif';
-            ctx.fillText('JANUARY 21, 2026', canvas.width/2, footerY + 70);
+            ctx.fillText('JANUARY 26, 2026 | JANUARY 29, 2026', canvas.width/2, footerY + 70);
             ctx.font = '10px "Open Sans", sans-serif';
-            ctx.fillText('MSGR. SERRANO AUDITORIUM', canvas.width/2, footerY + 85);
 
             document.getElementById('qrCodeContainer').classList.remove('hidden');
         } else {
