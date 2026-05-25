@@ -183,20 +183,18 @@ async function generateStudentQR() {
             ctx.fillStyle = '#FFFFFF';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // 2. Header (Deep Blue)
-            ctx.fillStyle = '#072758';
+            // 2. Header (Red gradient with purple accent)
+            ctx.fillStyle = '#C41E3A';
             ctx.fillRect(0, 0, canvas.width, 140);
             
             // 3. Header Text
             ctx.fillStyle = '#FFFFFF';
             ctx.textAlign = 'center';
             ctx.font = 'bold 28px "Playfair Display", serif';
-            ctx.fillText('CREARE ET INNOVARE', canvas.width/2, 60);
-            ctx.font = 'bold 24px "Playfair Display", serif';
-            ctx.fillText('2026', canvas.width/2, 90);
+            ctx.fillText('TECHKADA 2026', canvas.width/2, 70);
             ctx.fillStyle = '#EBEBEB';
             ctx.font = 'italic 12px "Open Sans", sans-serif';
-            ctx.fillText('The Research Forum', canvas.width/2, 115);
+            ctx.fillText('Beyond the Code', canvas.width/2, 110);
             
             // 4. Generate QR Code
             const qrSize = 250;
@@ -207,19 +205,19 @@ async function generateStudentQR() {
             await QRCode.toCanvas(tempCanvas, data.encryptedData, {
                 width: qrSize,
                 margin: 1,
-                color: { dark: '#072758', light: '#FFFFFF' }
+                color: { dark: '#C41E3A', light: '#FFFFFF' }
             });
             
             ctx.drawImage(tempCanvas, qrX, qrY);
             
             // QR Border
-            ctx.strokeStyle = '#072758';
+            ctx.strokeStyle = '#C41E3A';
             ctx.lineWidth = 2;
             ctx.strokeRect(qrX - 10, qrY - 10, qrSize + 20, qrSize + 20);
             
             // 5. Footer Details
             const footerY = 480;
-            ctx.fillStyle = '#072758';
+            ctx.fillStyle = '#C41E3A';
             ctx.font = 'bold 18px "Open Sans", sans-serif';
             ctx.fillText((data.studentName || 'Student').toUpperCase(), canvas.width/2, footerY);
             ctx.font = '14px "Open Sans", sans-serif';
@@ -230,11 +228,11 @@ async function generateStudentQR() {
             ctx.beginPath();
             ctx.moveTo(100, footerY + 45);
             ctx.lineTo(300, footerY + 45);
-            ctx.strokeStyle = '#EBEBEB';
+            ctx.strokeStyle = '#C41E3A';
             ctx.stroke();
             
             // Event Info
-            ctx.fillStyle = '#072758';
+            ctx.fillStyle = '#4B3B7A';
             ctx.font = 'bold 12px "Open Sans", sans-serif';
             ctx.fillText('JANUARY 21, 2026', canvas.width/2, footerY + 70);
             ctx.font = '10px "Open Sans", sans-serif';
@@ -258,7 +256,7 @@ function downloadQRCode() {
     const studentId = canvas.dataset.studentId || '';
     const name = canvas.dataset.studentName || 'Student';
     
-    let filename = `Research_Forum_Pass_2026_${studentId}_${name.replace(/\s+/g, '_')}.png`;
+    let filename = `Techkada_Pass_2026_${studentId}_${name.replace(/\s+/g, '_')}.png`;
 
     const link = document.createElement('a');
     link.download = filename;
