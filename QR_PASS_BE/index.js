@@ -14,11 +14,11 @@ connectDB();
 //         CORS WHITELIST
 // =============================
 const whitelist = [
-  'https://creareqr.vercel.app',
-  'https://creareqr.vercel.app/userPage.html',
-  'https://creareqr.vercel.app/adminPage.html',    // <--- Remove the trailing slash
+  'https://techkadaqr.vercel.app',
+  'https://techkadaqr.vercel.app/userPage.html',
+  'https://techkadaqr.vercel.app/adminPage.html',    // <--- Remove the trailing slash
   'http://127.0.0.1:5500',
-  'http://localhost:3000'
+  'http://localhost:3000',
 ];
 
 const corsOptions = {
