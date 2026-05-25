@@ -5,7 +5,7 @@ const connectDB = require('./config/db');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const Admin = require('./models/admin'); // 1. IMPORT YOUR ADMIN MODEL HERE (Adjust path if needed)
+const Admin = require('./models/Admin'); // 1. IMPORT YOUR ADMIN MODEL HERE (Adjust path if needed)
 
 const app = express();
 
