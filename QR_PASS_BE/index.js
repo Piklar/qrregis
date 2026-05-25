@@ -19,7 +19,7 @@ mongoose.connection.once('open', async () => {
   console.log('MongoDB connection established. Checking default admin...');
   try {
     // Check if the admin already exists
-    const adminExists = await Admin.findOne({ username: 'ernzmabangis' });
+    const adminExists = await Admin.findOne({ username: 'admin12345' });
     
     if (!adminExists) {
       const defaultAdmin = new Admin({
