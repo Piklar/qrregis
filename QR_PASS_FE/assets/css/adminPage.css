@@ -16,8 +16,8 @@
 }
 
 body {
-    background-color: #041836;
-    background: radial-gradient(circle at top left, #0a3575 0%, #041836 100%);
+    background-color: #2D1F4C;
+    background: radial-gradient(circle at top left, #4B3B7A 0%, #2D1F4C 100%);
     background-attachment: fixed;
     color: #FFFFFF;
     min-height: 100vh;
@@ -38,8 +38,8 @@ h1, h2, h3 {
 }
 
 .login-container {
-    background-color: rgba(4, 24, 54, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(45, 31, 76, 0.85);
+    border: 2px solid rgba(196, 30, 58, 0.3);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     padding: 3rem;
@@ -125,10 +125,10 @@ h1, h2, h3 {
 }
 
 .tab.active {
-    background-color: #EBEBEB;
-    color: #041836;
+    background-color: #C41E3A;
+    color: #FFFFFF;
     font-weight: 700;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(196, 30, 58, 0.3);
 }
 
 /* --- CONTENT SECTIONS --- */
@@ -144,8 +144,8 @@ h1, h2, h3 {
 .management-section, 
 .filter-section, 
 #verify {
-    background-color: rgba(7, 39, 88, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(75, 59, 122, 0.3);
+    border: 1px solid rgba(196, 30, 58, 0.2);
     border-radius: 16px;
     padding: 2rem;
     backdrop-filter: blur(10px);
@@ -195,9 +195,9 @@ input, select {
 }
 
 input:focus, select:focus {
-    border-color: #EBEBEB;
+    border-color: #C41E3A;
     background-color: rgba(0, 0, 0, 0.5);
-    box-shadow: 0 0 0 3px rgba(235, 235, 235, 0.1);
+    box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.2);
 }
 
 /* Key Input Specifics */
@@ -229,8 +229,8 @@ button {
 .login-btn {
     width: 100%;
     padding: 14px;
-    background-color: #EBEBEB;
-    color: #041836;
+    background-color: #C41E3A;
+    color: #FFFFFF;
     border: none;
     border-radius: 8px;
     font-weight: 700;
@@ -244,8 +244,8 @@ button {
 }
 
 .primary-btn, .filter-btn, .scan-btn, .success-btn {
-    background-color: #EBEBEB;
-    color: #041836;
+    background-color: #C41E3A;
+    color: #FFFFFF;
     border: none;
     padding: 12px 24px;
     border-radius: 8px;
@@ -272,8 +272,8 @@ button {
 }
 
 .logout-btn:hover, .danger-btn:hover {
-    background-color: #d9534f;
-    border-color: #d9534f;
+    background-color: #FF3347;
+    border-color: #FF3347;
     color: white;
 }
 
@@ -316,7 +316,7 @@ table {
 }
 
 th {
-    background-color: #072758;
+    background-color: #C41E3A;
     color: white;
     padding: 16px;
     text-align: left;
@@ -410,8 +410,8 @@ tr:hover {
 }
 
 .modal-content {
-    background-color: #072758;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(75, 59, 122, 0.95);
+    border: 1px solid rgba(196, 30, 58, 0.3);
     padding: 30px;
     border-radius: 16px;
     width: 90%;

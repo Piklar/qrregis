@@ -10,8 +10,10 @@
 }
 
 :root {
-    --primary-blue: #072758;
-    --dark-blue: #041836;
+    --primary-red: #C41E3A;
+    --primary-purple: #4B3B7A;
+    --dark-purple: #2D1F4C;
+    --accent-purple: #6C5B95;
     --accent-gray: #EBEBEB;
     --text-white: #FFFFFF;
     --text-light-gray: #B0B0B0;
@@ -23,7 +25,7 @@ body {
     font-family: var(--font-main);
     margin-inline: 5%;
     color: var(--text-white);
-    background-color: var(--dark-blue);
+    background-color: var(--dark-purple);
     line-height: 1.6;
 }
 
@@ -86,15 +88,15 @@ a:hover {
 .attendance-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: var(--primary-blue);
+    background-color: var(--primary-purple);
     margin-top: 2rem;
     border-radius: 8px;
     overflow: hidden;
 }
 
 .attendance-table th {
-    background-color: var(--accent-gray);
-    color: var(--dark-blue);
+    background-color: var(--primary-red);
+    color: var(--text-white);
     padding: 12px;
     text-align: left;
     font-family: var(--font-heading);

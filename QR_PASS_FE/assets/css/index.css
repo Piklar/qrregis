@@ -15,8 +15,8 @@ body {
     gap: 3rem;
     overflow-x: hidden;
     color: #FFFFFF;
-    background-color: #041836;
-    background: radial-gradient(circle at center, #0a3575 0%, #041836 100%);
+    background-color: #2D1F4C;
+    background: radial-gradient(circle at center, #4B3B7A 0%, #2D1F4C 100%);
     min-height: 100vh;
 }
 
@@ -48,7 +48,7 @@ body {
     max-width: 500px;
     height: auto;
     margin-block: 1rem;
-    filter: drop-shadow(0 0 15px rgba(7, 39, 88, 0.5));
+    filter: drop-shadow(0 0 15px rgba(196, 30, 58, 0.4));
     animation: float 6s ease-in-out infinite;
 }
 
@@ -119,7 +119,7 @@ body {
     font-style: italic;
     font-size: 1.3rem;
     max-width: 600px;
-    background: linear-gradient(to right, #ffffff, #a0c4ff);
+    background: linear-gradient(to right, #ffffff, #FF6B7A);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -146,9 +146,9 @@ body {
     width: 450px;
     min-height: 280px;
     padding: 3rem;
-    background-color: rgba(7, 39, 88, 0.3);
+    background-color: rgba(75, 59, 122, 0.25);
     backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(196, 30, 58, 0.2);
     border-radius: 1.5rem;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
@@ -157,7 +157,7 @@ body {
 
 .card i {
     font-size: 3.5rem;
-    color: #a0c4ff;
+    color: #C41E3A;
     margin-bottom: 1.5rem;
     display: block;
 }

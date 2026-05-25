@@ -3,9 +3,8 @@ require('dotenv').config();
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(`${process.env.MONGO_URI}/${process.env.DB_NAME}`, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+    await mongoose.connect(process.env.MONGO_URI, {
+      dbName: process.env.DB_NAME,
       serverSelectionTimeoutMS: 5000,
       maxPoolSize: 10,
       socketTimeoutMS: 45000

@@ -18,19 +18,19 @@ body {
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    background-color: #041836;
-    background: radial-gradient(circle at top, #0a3575 0%, #041836 100%);
+    background-color: #2D1F4C;
+    background: radial-gradient(circle at top, #4B3B7A 0%, #2D1F4C 100%);
     background-attachment: fixed;
 }
 
 /* Main Glass Container */
 .main-container {
-    background-color: rgba(7, 39, 88, 0.45);
+    background-color: rgba(75, 59, 122, 0.4);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     padding: 3rem;
     z-index: 1;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(196, 30, 58, 0.2);
     border-radius: 1.5rem;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
     max-width: 800px;
@@ -80,11 +80,11 @@ h1.title {
 }
 
 .tab.active {
-    background-color: #EBEBEB;
-    color: #072758;
+    background-color: #C41E3A;
+    color: #FFFFFF;
     font-weight: 700;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(196, 30, 58, 0.4);
 }
 
 .tab i { font-size: 1.1rem; }
@@ -135,9 +135,9 @@ select {
 }
 
 input:focus, select:focus {
-    border-color: #EBEBEB;
-    background-color: rgba(4, 24, 54, 1);
-    box-shadow: 0 0 0 3px rgba(235, 235, 235, 0.15);
+    border-color: #C41E3A;
+    background-color: rgba(45, 31, 76, 1);
+    box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.25);
 }
 
 /* Buttons */
@@ -145,8 +145,8 @@ input:focus, select:focus {
 .download-qr-btn,
 .generate-key-btn,
 .primary-btn {
-    background-color: #EBEBEB;
-    color: #072758;
+    background-color: #C41E3A;
+    color: #FFFFFF;
     font-size: 14px;
     width: 100%;
     padding: 14px;
@@ -161,9 +161,9 @@ input:focus, select:focus {
 }
 
 .encrypt-btn:hover, .download-qr-btn:hover, .primary-btn:hover {
-    background-color: #FFFFFF;
+    background-color: #FF3347;
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 20px rgba(196, 30, 58, 0.5);
 }
 
 .encrypt-btn:active { transform: translateY(-1px); }
@@ -227,8 +227,8 @@ input:focus, select:focus {
 }
 
 .modal-content {
-    background-color: #072758;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(75, 59, 122, 0.95);
+    border: 1px solid rgba(196, 30, 58, 0.3);
     padding: 35px;
     border-radius: 18px;
     width: 90%;
